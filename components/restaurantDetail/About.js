@@ -7,12 +7,14 @@ const image =
 const title = "Dummy Restaurant Name";
 const description = "Thai | Comfort | $$$ | 4(2913+)";
 
-export default function About() {
+export default function About(props) {
+  const { name, image, price, reviews, rating, categories } =
+    props.route.params;
   return (
     <View>
       {/* Restaurant Image */}
       <RestaurantImage image={image} />
-      <RestaurantTitle title={title} />
+      <RestaurantTitle title={name} />
       <RestaurantDescription description={description} />
       {/* Title */}
       {/* Description */}
