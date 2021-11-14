@@ -50,6 +50,7 @@ export default function RestaurantItems({ navigation, ...props }) {
               categories: item.categories,
             })
           }
+          key={index}
         >
           <View
             key={index}
