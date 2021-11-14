@@ -8,6 +8,9 @@ import {
   ScrollViewBase,
 } from "react-native";
 import { Divider } from "react-native-elements";
+import BouncyCheckbox from "react-native-bouncy-checkbox";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../redux/reducers/cartReducer";
 
 const foodItems = [
   {
@@ -18,7 +21,7 @@ const foodItems = [
       "https://www.archanaskitchen.com/images/archanaskitchen/1-Author/Neha_Mathur/Achari_Paneer_Tikka_Recipe_Party_Food.JPG",
   },
   {
-    title: "Paneer Tikka",
+    title: "Paneer Tikka - 1",
     description: "A Famous Indian Vegetarian dish",
     price: "₹ 149",
     image:
@@ -32,28 +35,28 @@ const foodItems = [
       "https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_1024/vo7osaqlexopn5f5bsq1",
   },
   {
-    title: "Paneer Tikka",
+    title: "Paneer Tikka 3",
     description: "A Famous Indian Vegetarian dish",
     price: "₹ 53",
     image:
       "https://www.archanaskitchen.com/images/archanaskitchen/1-Author/Neha_Mathur/Achari_Paneer_Tikka_Recipe_Party_Food.JPG",
   },
   {
-    title: "Paneer Tikka",
+    title: "Paneer Tikka 4",
     description: "A Famous Indian Vegetarian dish",
     price: "₹ 53",
     image:
       "https://www.archanaskitchen.com/images/archanaskitchen/1-Author/Neha_Mathur/Achari_Paneer_Tikka_Recipe_Party_Food.JPG",
   },
   {
-    title: "Paneer Tikka",
+    title: "Paneer Tikka 5",
     description: "A Famous Indian Vegetarian dish",
     price: "₹ 53",
     image:
       "https://www.archanaskitchen.com/images/archanaskitchen/1-Author/Neha_Mathur/Achari_Paneer_Tikka_Recipe_Party_Food.JPG",
   },
   {
-    title: "Paneer Tikka",
+    title: "Paneer Tikka 6",
     description: "A Famous Indian Vegetarian dish",
     price: "₹ 53",
     image:
@@ -61,12 +64,33 @@ const foodItems = [
   },
 ];
 
-export default function MenuItem() {
+export default function MenuItems({ restaurantName }) {
+  const dispatch = useDispatch();
+
+  const selectItem = (item) => dispatch(addToCart(item));
+
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       {foodItems.map((item, index) => (
         <View key={index}>
           <View style={styles.menuItemStyle}>
+            <BouncyCheckbox
+              iconStyle={{
+                borderColor: "lightgray",
+                borderRadius: 0,
+              }}
+              fillColor="green"
+              onPress={
+                (checkboxValue) =>
+                  // console.log({ ...item, restaurantName: restaurantName })
+                  selectItem({
+                    item,
+                    restaurantName: restaurantName,
+                    checkboxValue: checkboxValue,
+                  })
+                //dispatch(addToCart({ item, restaurantName: restaurantName }))
+              }
+            />
             <FoodInfo food={item} />
             <FoodImage food={item} />
           </View>
